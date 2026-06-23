@@ -26,4 +26,4 @@ export async function getChelseaLastGames(): Promise<Event[]> {
   const res = await fetch(`${BASE_URL}/eventslast.php?id=133610`);
   const data = await res.json();
   return data.results || [];
-}
+} 
