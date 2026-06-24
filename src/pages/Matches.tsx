@@ -73,19 +73,24 @@ const Matches = () => {
 	};
 
 	return (
-		<main>
+		<main className="flex flex-col gap-8">
 			<header>
-				<h1>Partidas</h1>
+				<h1 className="text-2xl font-bold md:text-3xl">
+					Partidas
+				</h1>
 
-				<p>
-					Consulte e filtre as partidas recebidas em
-					tempo real.
+				<p className="mt-2 text-sm text-[var(--app-muted)] md:text-base">
+					Consulte e filtre as partidas recebidas em tempo
+					real.
 				</p>
 			</header>
 
-			<section>
+			<section className="grid gap-4 rounded-lg border border-[var(--app-border)] bg-[var(--app-surface)] p-4 md:grid-cols-2 md:p-6">
 				<div>
-					<label htmlFor="match-search">
+					<label
+						htmlFor="match-search"
+						className="mb-1 block text-sm font-medium"
+					>
 						Buscar seleção
 					</label>
 
@@ -95,11 +100,15 @@ const Matches = () => {
 						value={searchTerm}
 						onChange={handleSearchChange}
 						placeholder="Ex.: França"
+						className="w-full rounded-lg border border-[var(--app-border)] bg-[var(--app-surface)] px-3 py-2 text-[var(--app-color)] outline-none focus:border-[var(--app-primary)]"
 					/>
 				</div>
 
 				<div>
-					<label htmlFor="status-filter">
+					<label
+						htmlFor="status-filter"
+						className="mb-1 block text-sm font-medium"
+					>
 						Status
 					</label>
 
@@ -107,38 +116,32 @@ const Matches = () => {
 						id="status-filter"
 						value={statusFilter}
 						onChange={handleStatusChange}
+						className="w-full rounded-lg border border-[var(--app-border)] bg-[var(--app-surface)] px-3 py-2 text-[var(--app-color)] outline-none focus:border-[var(--app-primary)]"
 					>
-						<option value="all">
-							Todas
-						</option>
-
-						<option value="live">
-							Em andamento
-						</option>
-
-						<option value="finished">
-							Finalizadas
-						</option>
-
-						<option value="scheduled">
-							Agendadas
-						</option>
+						<option value="all">Todas</option>
+						<option value="live">Em andamento</option>
+						<option value="finished">Finalizadas</option>
+						<option value="scheduled">Agendadas</option>
 					</select>
 				</div>
 			</section>
 
 			<section>
-				<h2>Resultados</h2>
+				<div className="mb-5 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+					<h2 className="text-xl font-semibold">
+						Resultados
+					</h2>
 
-				<p>
-					{filteredMatches.length}{' '}
-					{filteredMatches.length === 1
-						? 'partida encontrada'
-						: 'partidas encontradas'}
-				</p>
+					<p className="text-sm text-[var(--app-muted)]">
+						{filteredMatches.length}{' '}
+						{filteredMatches.length === 1
+							? 'partida encontrada'
+							: 'partidas encontradas'}
+					</p>
+				</div>
 
 				{currentMatches.length ? (
-					<div>
+					<div className="flex flex-col items-center gap-4">
 						{currentMatches.map(match => (
 							<MatchCard
 								key={match.idEvent}
@@ -147,7 +150,7 @@ const Matches = () => {
 						))}
 					</div>
 				) : (
-					<p>
+					<p className="rounded-lg border border-[var(--app-border)] bg-[var(--app-surface)] p-6 text-center text-[var(--app-muted)]">
 						Nenhuma partida corresponde aos filtros
 						selecionados.
 					</p>
@@ -155,18 +158,22 @@ const Matches = () => {
 			</section>
 
 			{filteredMatches.length > MATCHES_PER_PAGE && (
-				<nav aria-label="Paginação das partidas">
+				<nav
+					aria-label="Paginação das partidas"
+					className="flex flex-wrap items-center justify-center gap-4"
+				>
 					<button
 						type="button"
 						disabled={currentPage === 1}
 						onClick={() =>
 							setSelectedPage(currentPage - 1)
 						}
+						className="rounded-lg bg-[var(--app-primary)] px-4 py-2 text-sm font-medium text-white transition hover:bg-[var(--app-primary-hover)] disabled:cursor-not-allowed disabled:opacity-50"
 					>
 						Anterior
 					</button>
 
-					<span>
+					<span className="text-sm">
 						Página {currentPage} de {totalPages}
 					</span>
 
@@ -176,6 +183,7 @@ const Matches = () => {
 						onClick={() =>
 							setSelectedPage(currentPage + 1)
 						}
+						className="rounded-lg bg-[var(--app-primary)] px-4 py-2 text-sm font-medium text-white transition hover:bg-[var(--app-primary-hover)] disabled:cursor-not-allowed disabled:opacity-50"
 					>
 						Próxima
 					</button>

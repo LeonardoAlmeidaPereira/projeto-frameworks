@@ -58,3 +58,25 @@ export const isLiveMatch = (match: WorldCupMatch) =>
 
 export const isFinishedMatch = (match: WorldCupMatch) =>
 	getMatchStatusFilter(match) === 'finished';
+
+export const getMatchStatusLabel = (status: string | null) => {
+	switch (status?.trim().toUpperCase()) {
+		case 'NS':
+			return 'Não iniciada';
+		case '1H':
+			return 'Primeiro tempo';
+		case 'HT':
+			return 'Intervalo';
+		case '2H':
+			return 'Segundo tempo';
+		case 'FT':
+			return 'Finalizada';
+		case 'ET':
+			return 'Prorrogação';
+		case 'P':
+		case 'PEN':
+			return 'Pênaltis';
+		default:
+			return status ?? 'Status não informado';
+	}
+};

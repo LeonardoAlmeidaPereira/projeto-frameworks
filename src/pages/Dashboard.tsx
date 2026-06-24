@@ -1,10 +1,10 @@
 import { MatchCard } from '../components/MatchCard';
 import { WebSocketStatus } from '../components/WebSocketStatus';
-import { useLiveMatches } from '../hooks/useLiveMatches';
 import {
 	isFinishedMatch,
 	isLiveMatch,
 } from '../helpers/matchStatus';
+import { useLiveMatches } from '../hooks/useLiveMatches';
 
 const Dashboard = () => {
 	const {
@@ -17,35 +17,65 @@ const Dashboard = () => {
 	const finishedMatches = matches.filter(isFinishedMatch);
 
 	return (
-		<main>
+		<main className="flex flex-col gap-6">
 			<header>
-				<h1>Copa do Mundo em tempo real</h1>
+				<h1 className="text-2xl font-bold md:text-3xl">
+					Copa do Mundo em tempo real
+				</h1>
 
-				<WebSocketStatus
-					status={status}
-					lastUpdate={lastUpdate}
-				/>
+				<div className="mt-3">
+					<WebSocketStatus
+						status={status}
+						lastUpdate={lastUpdate}
+					/>
+				</div>
 			</header>
 
 			<section>
-				<h2>Resumo do dia</h2>
+				<h2 className="mb-3 text-xl font-semibold">
+					Resumo do dia
+				</h2>
 
-				<p>Total de partidas: {matches.length}</p>
+				<div className="grid gap-3 sm:grid-cols-3">
+					<div className="rounded-lg border border-[var(--app-border)] bg-[var(--app-surface)] p-4 text-center">
+						<strong className="block text-2xl">
+							{matches.length}
+						</strong>
 
-				<p>
-					Partidas em andamento: {liveMatches.length}
-				</p>
+						<span className="text-sm text-[var(--app-muted)]">
+							Total de partidas
+						</span>
+					</div>
 
-				<p>
-					Partidas finalizadas: {finishedMatches.length}
-				</p>
+					<div className="rounded-lg border border-[var(--app-border)] bg-[var(--app-surface)] p-4 text-center">
+						<strong className="block text-2xl">
+							{liveMatches.length}
+						</strong>
+
+						<span className="text-sm text-[var(--app-muted)]">
+							Em andamento
+						</span>
+					</div>
+
+					<div className="rounded-lg border border-[var(--app-border)] bg-[var(--app-surface)] p-4 text-center">
+						<strong className="block text-2xl">
+							{finishedMatches.length}
+						</strong>
+
+						<span className="text-sm text-[var(--app-muted)]">
+							Finalizadas
+						</span>
+					</div>
+				</div>
 			</section>
 
 			<section>
-				<h2>Partidas de hoje</h2>
+				<h2 className="mb-4 text-xl font-semibold">
+					Partidas de hoje
+				</h2>
 
 				{matches.length ? (
-					<div>
+					<div className="flex flex-col items-center gap-4">
 						{matches.map(match => (
 							<MatchCard
 								key={match.idEvent}
@@ -54,7 +84,7 @@ const Dashboard = () => {
 						))}
 					</div>
 				) : (
-					<p>
+					<p className="text-[var(--app-muted)]">
 						Nenhuma partida encontrada para hoje.
 					</p>
 				)}
